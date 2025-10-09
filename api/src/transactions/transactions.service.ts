@@ -6,14 +6,16 @@ export class TransactionsService {
     constructor(private readonly prisma: PrismaService) {}
 
     // GET /transactions
-    findAll() {
+    async findAll() {
         return this.prisma.transaction.findMany({
             orderBy: { createdAt: 'desc' },
         });
     }
 
     // POST /transactions
-    create(data: { userId: number; amount:number; currency: string; status:string}) {
-        return this.prisma.transaction.create({ data });
+    async create(data: { userId: number; amount:number; currency: string; status:string}) {
+        return this.prisma.transaction.create({
+             data
+        });
     }
 }
