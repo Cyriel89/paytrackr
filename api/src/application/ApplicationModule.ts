@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { InfrastructureModule } from '../infrastructure/InfrastructureModule';
-import { CreateTransactionsUseCase } from './transactions/usecases/CreateTransactionUseCase';
+import { CreateTransactionUseCase } from './transactions/usecases/CreateTransactionUseCase';
 import { ListTransactionUseCase } from './transactions/usecases/ListTransactionUseCase';
 import { TransactionDomainService } from 'src/domain/transactions/services/TransactionDomainService';
 
@@ -8,11 +8,11 @@ import { TransactionDomainService } from 'src/domain/transactions/services/Trans
   imports: [InfrastructureModule],
   providers: [
     TransactionDomainService,
-    CreateTransactionsUseCase,
+    CreateTransactionUseCase,
     ListTransactionUseCase,
   ],
   exports: [
-    CreateTransactionsUseCase,
+    CreateTransactionUseCase,
     ListTransactionUseCase,
   ],
 })

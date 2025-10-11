@@ -3,20 +3,16 @@ import { CreateTransactionDto, type ITransactionRepository, TRANSACTION_REPOSITO
 import { Transaction } from '../../../domain/transactions/entities/TransactionEntity';
 import { TransactionDomainService } from '../../../domain/transactions/services/TransactionDomainService';
 @Injectable()
-export class CreateTransactionsUseCase {
+export class CreateTransactionUseCase {
     constructor(
         @Inject(TRANSACTION_REPOSITORY)
         private readonly repository: ITransactionRepository,
         private readonly domain: TransactionDomainService,
     ) {}
 
-    execute(data: CreateTransactionDto): Promise<Transaction> {
+    async execute(data: CreateTransactionDto): Promise<Transaction> {
         this.domain.validateCreate(data);
-        try {
-            return this.repository.create(data);
-        } catch (e: any) {
-            if (e?.code === 'P2003') throw new UnprocessableEntityException('Invalid userId');
-            throw e;
-        } 
+        console.log('[UC] validating amount=', data.amount);
+        return await this.repository.create(data);
     }
 }

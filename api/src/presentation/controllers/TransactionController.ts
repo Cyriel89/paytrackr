@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, UseGuards, Req } from '@nestjs/common';
 import { ListTransactionUseCase } from '../../application/transactions/usecases/ListTransactionUseCase';
-import { CreateTransactionsUseCase } from '../../application/transactions/usecases/CreateTransactionUseCase';
+import { CreateTransactionUseCase } from '../../application/transactions/usecases/CreateTransactionUseCase';
 import { CreateTransactionDto } from '../dtos/CreateTransactionDto'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
@@ -8,7 +8,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 export class TransactionsController {
     constructor(
         private readonly getTransactions: ListTransactionUseCase,
-        private readonly createTransaction: CreateTransactionsUseCase,
+        private readonly createTransaction: CreateTransactionUseCase,
     ) {}
 
     @Get()
