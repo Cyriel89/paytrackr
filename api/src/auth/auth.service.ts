@@ -1,5 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { PrismaService } from '../infra/prisma/prisma.service';
+import { PrismaService } from '../infrastructure/prisma/prisma.service';
 import * as argon2 from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 
@@ -13,16 +13,18 @@ export class AuthService {
         select: { id: true, email: true, role: true, createdAt: true }
     });
   }
-  
+
   // POST /auth/login
   async signIn(email: string, password: string) {
-    const user = await this.prisma.user.findUnique({ where: { email}});
+    const user = await this.prisma.user.findUnique({ where: { email }});
+    console.log('[login] email=', email);
+    console.log('[login] found user=', !!user);
     if(!user || !(await argon2.verify(user.password, password))) {
         throw new UnauthorizedException('Invalid credentials');
     }
     const payload = { sub: user.id, email: user.email, role: user.role};
-    const token = await this.jwtService.signAsync(payload, { secret: process.env.JWT_SECRET, expiresIn: process.env.JWT_EXPIRES_IN || "1h" });
-    return { token };
+    const access_token = await this.jwtService.signAsync(payload, { secret: process.env.JWT_SECRET, expiresIn: process.env.JWT_EXPIRES_IN || "1h" });
+    return { access_token };
   }
 
   // POST /auth/register (réservé à l'admin)

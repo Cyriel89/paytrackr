@@ -1,0 +1,27 @@
+import { Controller, Get, Post, Body, UseGuards, Req } from '@nestjs/common';
+import { ListTransactionUseCase } from '../../application/transactions/usecases/ListTransactionUseCase';
+import { CreateTransactionsUseCase } from '../../application/transactions/usecases/CreateTransactionUseCase';
+import { CreateTransactionDto } from '../dtos/CreateTransactionDto'
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+
+@Controller('transactions')
+export class TransactionsController {
+    constructor(
+        private readonly getTransactions: ListTransactionUseCase,
+        private readonly createTransaction: CreateTransactionsUseCase,
+    ) {}
+
+    @Get()
+    findAll() {
+        return this.getTransactions.execute();
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post()
+    create(@Req() req, @Body() data: CreateTransactionDto) {
+        return this.createTransaction.execute({
+            ...data,
+            userId: req.user.userId, // <-- injecté depuis le token
+        });
+    }
+}
