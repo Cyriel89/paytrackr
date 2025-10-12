@@ -16,4 +16,21 @@ final class StatusController extends AbstractController
             'path' => 'src/Controller/StatusController.php',
         ]);
     }
+
+    #[Route('/health', name: 'app_health')]
+    public function health(): JsonResponse
+    {
+        return $this->json([
+            'status' => 'ok',
+            'service' => 'symphony'
+        ]);
+    }
+
+    #[Route('/stats/summary', name: 'app_stats_summary')]
+    public function summary(): JsonResponse
+    {
+       return $this->json([
+            'ok' => true,
+        ]);
+    } 
 }

@@ -3,3 +3,9 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+    health:
+        path: /health
+        controller: App\Controller\HealthController::health
+    stats_summary:
+        path: /stats/summary
+        controller: App\Controller\StatsController::summary
