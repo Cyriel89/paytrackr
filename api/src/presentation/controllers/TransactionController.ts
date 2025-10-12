@@ -3,6 +3,7 @@ import { ListTransactionUseCase } from '../../application/transactions/usecases/
 import { CreateTransactionUseCase } from '../../application/transactions/usecases/CreateTransactionUseCase';
 import { CreateTransactionDto } from '../dtos/CreateTransactionDto'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Roles } from 'src/auth/RolesDecorator';
 
 @Controller('transactions')
 export class TransactionsController {
@@ -17,6 +18,7 @@ export class TransactionsController {
     }
 
     @UseGuards(JwtAuthGuard)
+    @Roles('ADMIN', 'ANALYST')
     @Post()
     create(@Req() req, @Body() data: CreateTransactionDto) {
         return this.createTransaction.execute({

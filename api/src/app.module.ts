@@ -3,6 +3,7 @@ import { PresentationModule } from './presentation/PresentationModule';
 import { ThrottlerModule } from '@nestjs/throttler/dist/throttler.module';
 import { ThrottlerGuard } from '@nestjs/throttler/dist/throttler.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './auth/RolesGuard';
 
 @Module({
   imports: [PresentationModule, ThrottlerModule.forRoot({
@@ -13,6 +14,9 @@ import { APP_GUARD } from '@nestjs/core';
       },
     ],
   })],
-  providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
+  providers: [
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
+    { provide: APP_GUARD, useClass: RolesGuard },
+  ],
 })
 export class AppModule {}
