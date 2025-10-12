@@ -11,9 +11,21 @@ async function bootstrap() {
     .setTitle('Paytrackr API')
     .setDescription('Transactions API')
     .setVersion('1.0')
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat:'JWT',
+      description: 'Paste your access_token here'
+    })
+    .addServer('http://localhost:3000')
     .build();
 
   const document = () => SwaggerModule.createDocument(app, config);
+  (document as any).externalDocs = {
+    description: 'Symfony stats service',
+    url: 'http://localhost:3000'
+  };
+  
   SwaggerModule.setup('api', app, document);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }));
   app.use(helmet());

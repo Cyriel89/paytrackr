@@ -1,6 +1,6 @@
 import { Controller, Body, Post, HttpCode, HttpStatus, UseGuards, Req, Get } from '@nestjs/common';
 import { AuthService } from './auth.service'
-import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiBody, ApiOkResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { RegisterDto } from './dto/registerDto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 
@@ -15,6 +15,15 @@ export class AuthController {
         return this.authService.findAllUsers();
     }
 
+    @ApiBody({ schema: {
+        type: 'object',
+        properties: {
+        email: { type: 'string', example: 'admin@paytrackr.local' },
+        password: { type: 'string', example: 'Admin!123' },
+        }, required: ['email','password'] } })
+    @ApiOkResponse({ description: 'JWT issued', schema: {
+        type: 'object', properties: { access_token: { type: 'string', example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...' } } }})
+    @ApiUnauthorizedResponse({ description: 'Invalid credentials' })
     @HttpCode(HttpStatus.OK)
     @Post('login')
     async signIn(@Body() signInDto: Record<string, any>) {
