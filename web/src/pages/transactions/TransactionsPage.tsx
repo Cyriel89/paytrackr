@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { http } from '../../api/http';
 import { type Transaction } from './types';
 import CreateTransactionForm from './CreateTransactionForm';
+import StatsCard from './StatsCard';
 
 export default function TransactionsPage() {
     const [items, setItems] = useState<Transaction[]>([]);
@@ -26,15 +27,16 @@ export default function TransactionsPage() {
             <h1 className="text-5xl text-center font-bold">Transactions</h1>
             <CreateTransactionForm onCreated={load} />
      
-            {loading && (
-                <div className="text-sm text-black">Chargement…</div>
-            )}
-            {!loading && items.length === 0 && (
-                <div className="text-sm text-gray-500">
-                    Aucune transaction pour le moment.
-                </div>
-            )}
+            <StatsCard />
             <div className="bg-white rounded-2xl shadow-sm overflow-hidden max-h-[60vh] overflow-y-auto">
+                {loading && (
+                    <div className="text-sm text-black">Chargement…</div>
+                )}
+                {!loading && items.length === 0 && (
+                    <div className="text-sm text-gray-500">
+                        Aucune transaction pour le moment.
+                    </div>
+                )}
                 <table className="w-full text-sm">
                   <thead className="bg-black text-left sticky top-0">
                     <tr>
