@@ -19,7 +19,7 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen w-screen grid place-items-center bg-gray-50 p-6">
+        <div className="min-h-screen w-screen grid place-items-center bg-gray-500 p-6">
             <form onSubmit={onSubmit} className="w-full max-w-lg bg-white p-6 rounded-2xl shadow-sm space-y-4">
                 <h1 className="text-2xl font-bold text-gray-800 text-center">Connexion</h1>
                 {error && <div className="text-red-600 text-sm">{error}</div>}
