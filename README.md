@@ -31,6 +31,15 @@ Créer une application interne permettant aux équipes d'une entreprise de :
 
 ## 🧭 Architecture du Projet
 
+```bash
+src/
+├── infra/ → PostgreSQL + Adminer (Docker)
+├── api/ → Backend NestJS (Hexagonale + Prisma)
+├── service/ → Microservice Symfony (stats agrégées)
+└── web/ → Frontend React (Vite + Tailwind)
+
+```
+
 paytrackr/
 ├── infra/ → PostgreSQL + Adminer (Docker)
 ├── api/ → Backend NestJS (Hexagonale + Prisma)
