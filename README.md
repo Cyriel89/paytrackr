@@ -37,14 +37,7 @@ src/
 ├── api/ → Backend NestJS (Hexagonale + Prisma)
 ├── service/ → Microservice Symfony (stats agrégées)
 └── web/ → Frontend React (Vite + Tailwind)
-
 ```
-
-paytrackr/
-├── infra/ → PostgreSQL + Adminer (Docker)
-├── api/ → Backend NestJS (Hexagonale + Prisma)
-├── service/ → Microservice Symfony (stats agrégées)
-└── web/ → Frontend React (Vite + Tailwind)
 
 ---
 
